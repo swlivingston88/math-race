@@ -84,7 +84,7 @@ export class Level extends SWLCustomElement {
                     vehicle.move(() => {
                         console.log(vehicle.score);
                         if(vehicle.score === this.winningScore) {
-                            this.swlTrigger(Level.EVENTS.WIN);
+                            this.swlTrigger(Level.EVENTS.LOSE);
                         }
                     });
                     

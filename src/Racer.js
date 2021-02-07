@@ -30,7 +30,7 @@ export class Racer extends SWLCustomElement {
     move(callback){
         this.swlQuery('.racer').animate({
             top: "-=5%"
-        }, 500, "", () => {
+        }, 1000, "", () => {
             this.score++;
             callback();
         });
@@ -40,6 +40,6 @@ export class Racer extends SWLCustomElement {
         this.score--;
         this.swlQuery('.racer').animate({
             top: "+=5%"
-        }, 500);
+        }, 1000);
     }
 }
