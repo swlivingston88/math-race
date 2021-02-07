@@ -1,4 +1,4 @@
-import { LEVELS } from "./Levels.js";
+import { getLevel } from "./Levels.js";
 import { MathQuestion } from "./MathQuestion.js";
 import { mathService } from "./MathService.js";
 import { Racer } from "./Racer.js";
@@ -47,17 +47,18 @@ export class Level extends SWLCustomElement {
     constructor(levelIdx = 0){
         super({template:template});
         this.levelIdx = levelIdx;
-        let levelData = LEVELS[levelIdx];
+        let levelData = getLevel(this.levelIdx);
         this.moveChance = levelData.moveChance;
         this.winningScore = levelData.winningScore;
         this.time = 0;
         this.mathQuestion = new MathQuestion(levelData.mathObject);
+        console.log('Move Chance = ' + this.moveChance);
         this.swlRender();
     }
 
     swlRender(){
-        super.swlRender({level: this.levelIdx});
-        setInterval(() => { this.loop() }, 1000);
+        super.swlRender({level: this.levelIdx + 1});
+        this.looper = setInterval(() => { this.loop() }, 1000);
         this.player = this.swlFindElements('swl-racer[data-player="true"]', Racer)[0];
         this.querySelector('.mathQuestion').appendChild(this.mathQuestion);
         this.mathQuestion.swlOn(MathQuestion.EVENTS.correct, () => {
@@ -90,15 +91,12 @@ export class Level extends SWLCustomElement {
                 }
             }
         }
-        this.incrementTime();
     }
 
-    incrementTime(){
-        this.time++;
-        this.swlQuery('.timer').html('' + this.time);
+    destroy(){
+        clearInterval(this.looper);
+        this.remove();
     }
-
-
 
     
 }

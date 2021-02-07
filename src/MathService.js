@@ -36,7 +36,7 @@ var mathService = function(){
             'apply' : function (a, b){
                 return a * b;
             },
-            'max' : 7, //operand max
+            'max' : 3, //operand max
             'min' : 0, //operand min
             'getProblem' : function(){
                 var num1 = rand(this.min, this.max);
